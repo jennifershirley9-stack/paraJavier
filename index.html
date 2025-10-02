@@ -2,16 +2,18 @@
 <html lang="es">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
   <title>Para Javi 💙</title>
   <style>
-    body, html {
+    html, body {
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden; /* bloqueo inicial */
+      width: 100%;
+      overflow: hidden; /* Bloqueo inicial */
       background: #e6f2ff;
       font-family: Arial, sans-serif;
+      position: fixed; /* 👈 fuerza a que no se mueva */
     }
 
     /* Ventana inicial */
@@ -176,16 +178,12 @@
       "Ya te veo después💕"
     ];
 
-    let indiceMensaje = 0; // para recorrer en bucle
+    let indiceMensaje = 0;
 
     function lluviaCorazones() {
-      // ocultamos la ventana inicial
       document.getElementById("overlay").style.display = "none";
-
-      // mostramos el título del día del novio
       document.getElementById("tituloDia").style.display = "block";
 
-      // iniciar lluvia de corazones azules
       setInterval(() => {
         crearCorazon();
       }, 600);
@@ -215,9 +213,6 @@
       document.getElementById("textoMensaje").innerText = mensaje;
       document.getElementById("mensajeModal").style.display = "flex";
 
-      // 🚫 Bloquear scroll mientras se muestra el modal
-      document.body.style.overflow = "hidden";
-
       indiceMensaje++;
       if (indiceMensaje >= mensajes.length) {
         indiceMensaje = 0;
@@ -226,12 +221,13 @@
 
     function cerrarMensaje() {
       document.getElementById("mensajeModal").style.display = "none";
-
-      // ✅ Restaurar scroll bloqueado
-      document.body.style.overflow = "hidden"; // 👈 mantenemos bloqueado siempre
     }
 
-    // cerrar ventana inicial con la X
+    // bloquear scroll en móviles
+    document.body.addEventListener("touchmove", function(e) {
+      e.preventDefault();
+    }, { passive: false });
+
     document.getElementById("closeBtn").addEventListener("click", () => {
       document.getElementById("overlay").style.display = "none";
     });
@@ -239,9 +235,3 @@
 
 </body>
 </html>
-
-
-</body>
-</html>
-
-
