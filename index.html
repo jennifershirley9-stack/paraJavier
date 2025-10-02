@@ -62,8 +62,9 @@
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
-      z-index: 1000; /* siempre encima */
-      pointer-events: none; /* no bloquea clics en corazones */
+      z-index: 1000; 
+      pointer-events: none; 
+      display: none; /* 👈 oculto al inicio */
     }
     .titulo h1 {
       font-family: "Cursive", sans-serif;
@@ -82,7 +83,7 @@
     /* Corazones cayendo */
     .corazon {
       position: absolute;
-      font-size: 50px;   /* tamaño mediano */
+      font-size: 50px;
       cursor: pointer;
       z-index: 500;
       animation: caer 5s linear forwards;
@@ -144,7 +145,7 @@
     <div class="modal">
       <div class="close-btn" id="closeBtn">×</div>
       <h1>💙 Para Javier 💙</h1>
-      <p>Si eres Javier, presiona aquí</p>
+      <p>Si te llamas así : </p>
       <button onclick="lluviaCorazones()">Presiona aquí</button>
     </div>
   </div>
@@ -157,10 +158,11 @@
     </div>
   </div>
 
-  <!-- Título fijo en el centro -->
-  <div class="titulo">
+  <!-- Título fijo en el centro (oculto al inicio) -->
+  <div class="titulo" id="tituloDia">
     <h1>Feliz Día del Novio 💙</h1>
     <p>(pls que ya no inventen más fechas jaja)</p>
+     <p>pd. presiona los corazones </p>
   </div>
   
   <script>
@@ -179,6 +181,9 @@
       // ocultamos la ventana inicial
       document.getElementById("overlay").style.display = "none";
 
+      // mostramos el título del día del novio
+      document.getElementById("tituloDia").style.display = "block";
+
       // iniciar lluvia de corazones azules
       setInterval(() => {
         crearCorazon();
@@ -187,14 +192,12 @@
 
     function crearCorazon() {
       const corazon = document.createElement("div");
-      corazon.innerText = "💙";  // emoji azul
+      corazon.innerText = "💙";  
       corazon.classList.add("corazon");
 
-      // posición horizontal aleatoria
       corazon.style.left = Math.random() * window.innerWidth + "px";
       corazon.style.top = "-50px";
 
-      // evento de clic
       corazon.addEventListener("click", () => {
         mostrarMensaje();
       });
@@ -211,7 +214,6 @@
       document.getElementById("textoMensaje").innerText = mensaje;
       document.getElementById("mensajeModal").style.display = "flex";
 
-      // pasar al siguiente en bucle
       indiceMensaje++;
       if (indiceMensaje >= mensajes.length) {
         indiceMensaje = 0;
