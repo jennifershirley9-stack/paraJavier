@@ -11,8 +11,9 @@
       width: 100%;
       height: 100%;
       background: #f0f8ff;
-      overflow: hidden; /* evita scroll en cualquier dispositivo */
+      overflow: hidden; /* evita scroll */
       font-family: Arial, sans-serif;
+      position: fixed; /* asegura que no se mueva nunca */
     }
 
     /* Pantalla inicial */
@@ -57,21 +58,21 @@
 
     /* Título fijo */
     .titulo {
-      position: fixed; /* siempre fijo en pantalla */
+      position: fixed;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
       z-index: 3000;
       display: none;
-      width: 90%; /* para adaptarse en móviles */
+      width: 90%;
       max-width: 600px;
     }
 
     .titulo h1 {
       font-family: "Cursive", sans-serif;
-      font-size: 2vw; /* se adapta al tamaño de pantalla */
-      max-font-size: 30px;
+      font-size: 8vw;
+      max-font-size: 60px;
       color: #003366;
       font-style: italic;
       margin: 0;
@@ -79,7 +80,7 @@
     }
 
     .titulo p {
-      font-size: 4vw; /* se adapta en móviles */
+      font-size: 4vw;
       max-font-size: 20px;
       color: #555;
       margin-top: 10px;
@@ -88,11 +89,12 @@
 
     /* Corazones */
     .corazon {
-      position: absolute;
-      font-size: 40px; /* tamaño mediano */
+      position: fixed; /* 🔹 ahora son fijos, no mueven la pantalla */
+      font-size: 40px;
       animation: caer 6s linear forwards;
       cursor: pointer;
       z-index: 1000;
+      pointer-events: auto;
     }
 
     @keyframes caer {
@@ -177,31 +179,26 @@
     ];
 
     function lluviaCorazones() {
-      // Ocultar la ventana inicial
       document.getElementById("overlay").style.display = "none";
-
-      // Mostrar el título
       document.querySelector(".titulo").style.display = "block";
 
-      // Iniciar lluvia de corazones
       setInterval(() => {
         crearCorazon();
-      }, 600);
+      }, 700); // un poco más lento para que no sature el cel
     }
 
     function crearCorazon() {
       const corazon = document.createElement("div");
-      corazon.textContent = "💙"; // emoji de corazón azul
+      corazon.textContent = "💙";
       corazon.classList.add("corazon");
       corazon.style.left = Math.random() * window.innerWidth + "px";
       document.body.appendChild(corazon);
 
-      // Evento de clic en cada corazón → mostrar mensaje
+      // evento click/touch → mensaje
       corazon.addEventListener("click", () => {
         mostrarMensaje();
       });
 
-      // Eliminar después de 6s (cuando termine la animación)
       setTimeout(() => {
         corazon.remove();
       }, 6000);
