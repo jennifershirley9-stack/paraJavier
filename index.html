@@ -10,10 +10,25 @@
       padding: 0;
       height: 100%;
       width: 100%;
-      overflow: hidden; /* Bloqueo inicial */
-      background: #e6f2ff;
+      overflow: hidden;
       font-family: Arial, sans-serif;
-      position: fixed; /* 👈 fuerza a que no se mueva */
+      position: fixed;
+      /* 🌌 Fondo púrpura degradado efecto noche */
+      background: linear-gradient(180deg, #2F2954 0%, #1E1A38 50%, #0D0B1A 100%);
+    }
+
+    /* ⭐ Estrellitas */
+    .star {
+      position: absolute;
+      background: white;
+      border-radius: 50%;
+      opacity: 0.8;
+      animation: twinkle 2s infinite alternate;
+    }
+
+    @keyframes twinkle {
+      from { opacity: 0.2; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1.2); }
     }
 
     /* Ventana inicial */
@@ -66,18 +81,18 @@
       text-align: center;
       z-index: 1000; 
       pointer-events: none; 
-      display: none; /* 👈 oculto al inicio */
+      display: none; /* oculto al inicio */
     }
     .titulo h1 {
       font-family: "Cursive", sans-serif;
       font-size: 50px;
-      color: #003366;
+      color: #e0dfff;
       font-style: italic;
       margin: 0;
     }
     .titulo p {
       font-size: 20px;
-      color: #555;
+      color: #ccc;
       margin-top: 10px;
       font-style: italic;
     }
@@ -160,7 +175,7 @@
     </div>
   </div>
 
-  <!-- Título fijo en el centro (oculto al inicio) -->
+  <!-- Título fijo en el centro -->
   <div class="titulo" id="tituloDia">
     <h1>Feliz Día del Novio 💙</h1>
     <p>(pls que ya no inventen más fechas jaja)</p>
@@ -231,6 +246,30 @@
     document.getElementById("closeBtn").addEventListener("click", () => {
       document.getElementById("overlay").style.display = "none";
     });
+
+    // ⭐ Generar estrellitas
+    function crearEstrellas(cantidad) {
+      for (let i = 0; i < cantidad; i++) {
+        const star = document.createElement("div");
+        star.classList.add("star");
+
+        // Posición aleatoria
+        star.style.left = Math.random() * window.innerWidth + "px";
+        star.style.top = Math.random() * window.innerHeight + "px";
+
+        // Tamaño aleatorio
+        const size = Math.random() * 3 + 1;
+        star.style.width = size + "px";
+        star.style.height = size + "px";
+
+        // Variar duración del parpadeo
+        star.style.animationDuration = (Math.random() * 3 + 2) + "s";
+
+        document.body.appendChild(star);
+      }
+    }
+
+    crearEstrellas(100); // 🌌 crea 100 estrellas
   </script>
 
 </body>
