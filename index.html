@@ -9,7 +9,7 @@
       margin: 0;
       padding: 0;
       height: 100%;
-      overflow: hidden;
+      overflow: hidden; /* bloqueo inicial */
       background: #e6f2ff;
       font-family: Arial, sans-serif;
     }
@@ -162,7 +162,7 @@
   <div class="titulo" id="tituloDia">
     <h1>Feliz Día del Novio 💙</h1>
     <p>(pls que ya no inventen más fechas jaja)</p>
-     <p>pd. presiona los corazones </p>
+    <p>pd. presiona los corazones </p>
   </div>
   
   <script>
@@ -215,6 +215,9 @@
       document.getElementById("textoMensaje").innerText = mensaje;
       document.getElementById("mensajeModal").style.display = "flex";
 
+      // 🚫 Bloquear scroll mientras se muestra el modal
+      document.body.style.overflow = "hidden";
+
       indiceMensaje++;
       if (indiceMensaje >= mensajes.length) {
         indiceMensaje = 0;
@@ -223,6 +226,9 @@
 
     function cerrarMensaje() {
       document.getElementById("mensajeModal").style.display = "none";
+
+      // ✅ Restaurar scroll bloqueado
+      document.body.style.overflow = "hidden"; // 👈 mantenemos bloqueado siempre
     }
 
     // cerrar ventana inicial con la X
@@ -230,6 +236,10 @@
       document.getElementById("overlay").style.display = "none";
     });
   </script>
+
+</body>
+</html>
+
 
 </body>
 </html>
