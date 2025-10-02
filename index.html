@@ -24,6 +24,7 @@
       border-radius: 50%;
       opacity: 0.8;
       animation: twinkle 2s infinite alternate;
+      z-index: 1; /* 👈 atrás de todo */
     }
 
     @keyframes twinkle {
@@ -79,9 +80,9 @@
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
-      z-index: 1000; 
+      z-index: 1200; 
       pointer-events: none; 
-      display: none; /* oculto al inicio */
+      display: none;
     }
     .titulo h1 {
       font-family: "Cursive", sans-serif;
@@ -102,7 +103,7 @@
       position: absolute;
       font-size: 50px;
       cursor: pointer;
-      z-index: 500;
+      z-index: 1100;
       animation: caer 5s linear forwards;
     }
     @keyframes caer {
@@ -268,6 +269,12 @@
         document.body.appendChild(star);
       }
     }
+
+    crearEstrellas(100); // 🌌 crea 100 estrellas
+  </script>
+
+</body>
+</html>
 
     crearEstrellas(100); // 🌌 crea 100 estrellas
   </script>
