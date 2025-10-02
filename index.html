@@ -1,59 +1,58 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Para Javier</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0" />
+  <title>Para Javi 💙</title>
   <style>
-    html, body {
+    body, html {
       margin: 0;
       padding: 0;
-      width: 100%;
       height: 100%;
-      background: #f0f8ff;
-      overflow: hidden; /* evita scroll */
+      overflow: hidden;
+      background: #e6f2ff;
       font-family: Arial, sans-serif;
-      position: fixed; /* asegura que no se mueva nunca */
     }
 
-    /* Pantalla inicial */
-    #overlay {
+    /* Ventana inicial */
+    .overlay {
       position: fixed;
       top: 0; left: 0;
-      width: 100%;
-      height: 100%;
-      background: rgba(0,0,50,0.8);
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.6);
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 2000;
+      z-index: 1000;
     }
-
-    .ventana {
+    .modal {
+      position: relative;
       background: white;
+      border-radius: 15px;
       padding: 30px;
-      border-radius: 20px;
       text-align: center;
-      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      max-width: 400px;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
     }
-
-    .ventana h2 {
-      margin-bottom: 20px;
-      color: #003366;
-    }
-
-    .ventana button {
-      padding: 10px 20px;
-      background: #003366;
-      color: white;
-      border: none;
-      border-radius: 10px;
+    .close-btn {
+      position: absolute;
+      top: 10px; right: 15px;
+      font-size: 24px;
       cursor: pointer;
-      font-size: 18px;
     }
-
-    .ventana button:hover {
-      background: #0055aa;
+    button {
+      margin-top: 15px;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      background: #0066cc;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    button:hover {
+      background: #004d99;
     }
 
     /* Título fijo */
@@ -63,47 +62,44 @@
       left: 50%;
       transform: translate(-50%, -50%);
       text-align: center;
-      z-index: 3000;
-      display: none;
-      width: 90%;
-      max-width: 600px;
+      z-index: 1000; /* siempre encima */
+      pointer-events: none; /* no bloquea clics en corazones */
     }
-
     .titulo h1 {
       font-family: "Cursive", sans-serif;
-      font-size: 8vw;
-      max-font-size: 60px;
+      font-size: 50px;
       color: #003366;
       font-style: italic;
       margin: 0;
-      word-wrap: break-word;
     }
-
     .titulo p {
-      font-size: 4vw;
-      max-font-size: 20px;
+      font-size: 20px;
       color: #555;
       margin-top: 10px;
       font-style: italic;
     }
 
-    /* Corazones */
+    /* Corazones cayendo */
     .corazon {
-      position: fixed; /* 🔹 ahora son fijos, no mueven la pantalla */
-      font-size: 40px;
-      animation: caer 6s linear forwards;
+      position: absolute;
+      font-size: 50px;   /* tamaño mediano */
       cursor: pointer;
-      z-index: 1000;
-      pointer-events: auto;
+      z-index: 500;
+      animation: caer 5s linear forwards;
     }
-
     @keyframes caer {
-      0% { transform: translateY(-50px) rotate(0deg); }
-      100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+      0% {
+        transform: translateY(-100px) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        transform: translateY(100vh) rotate(360deg);
+        opacity: 0;
+      }
     }
 
     /* Modal de mensajes */
-    #mensajeModal {
+    .mensaje {
       position: fixed;
       top: 0; left: 0;
       width: 100%; height: 100%;
@@ -111,10 +107,9 @@
       display: none;
       justify-content: center;
       align-items: center;
-      z-index: 4000;
+      z-index: 2000;
     }
-
-    .contenido {
+    .mensaje-contenido {
       background: #fff;
       padding: 20px;
       border-radius: 12px;
@@ -123,13 +118,11 @@
       box-shadow: 0 4px 15px rgba(0,0,0,0.4);
       animation: fadeIn 0.5s ease-in-out;
     }
-
-    .contenido p {
+    .mensaje-contenido p {
       font-size: 18px;
       color: #333;
     }
-
-    .contenido button {
+    .mensaje-contenido button {
       margin-top: 15px;
       padding: 8px 16px;
       border: none;
@@ -138,7 +131,6 @@
       color: white;
       cursor: pointer;
     }
-
     @keyframes fadeIn {
       from { opacity: 0; transform: scale(0.8); }
       to { opacity: 1; transform: scale(1); }
@@ -146,11 +138,22 @@
   </style>
 </head>
 <body>
-  <!-- Overlay inicial -->
-  <div id="overlay">
-    <div class="ventana">
-      <h2>Si te llamas Javier presiona aquí 💙</h2>
-      <button onclick="lluviaCorazones()">Entrar</button>
+
+  <!-- Ventana inicial -->
+  <div class="overlay" id="overlay">
+    <div class="modal">
+      <div class="close-btn" id="closeBtn">×</div>
+      <h1>💙 Para Javier 💙</h1>
+      <p>Si eres Javier, presiona aquí</p>
+      <button onclick="lluviaCorazones()">Presiona aquí</button>
+    </div>
+  </div>
+
+  <!-- Modal de mensajes -->
+  <div class="mensaje" id="mensajeModal">
+    <div class="mensaje-contenido">
+      <p id="textoMensaje"></p>
+      <button onclick="cerrarMensaje()">Cerrar</button>
     </div>
   </div>
 
@@ -159,15 +162,7 @@
     <h1>Feliz Día del Novio 💙</h1>
     <p>(pls que ya no inventen más fechas jaja)</p>
   </div>
-
-  <!-- Modal de mensajes -->
-  <div id="mensajeModal">
-    <div class="contenido">
-      <p id="textoMensaje"></p>
-      <button onclick="cerrarMensaje()">Cerrar</button>
-    </div>
-  </div>
-
+  
   <script>
     const mensajes = [
       "Te quiero mucho 💙",
@@ -178,42 +173,62 @@
       "Ya te veo después💕"
     ];
 
-    function lluviaCorazones() {
-      document.getElementById("overlay").style.display = "none";
-      document.querySelector(".titulo").style.display = "block";
+    let indiceMensaje = 0; // para recorrer en bucle
 
+    function lluviaCorazones() {
+      // ocultamos la ventana inicial
+      document.getElementById("overlay").style.display = "none";
+
+      // iniciar lluvia de corazones azules
       setInterval(() => {
         crearCorazon();
-      }, 700); // un poco más lento para que no sature el cel
+      }, 600);
     }
 
     function crearCorazon() {
       const corazon = document.createElement("div");
-      corazon.textContent = "💙";
+      corazon.innerText = "💙";  // emoji azul
       corazon.classList.add("corazon");
-      corazon.style.left = Math.random() * window.innerWidth + "px";
-      document.body.appendChild(corazon);
 
-      // evento click/touch → mensaje
+      // posición horizontal aleatoria
+      corazon.style.left = Math.random() * window.innerWidth + "px";
+      corazon.style.top = "-50px";
+
+      // evento de clic
       corazon.addEventListener("click", () => {
         mostrarMensaje();
       });
 
+      document.body.appendChild(corazon);
+
       setTimeout(() => {
         corazon.remove();
-      }, 6000);
+      }, 5000);
     }
 
     function mostrarMensaje() {
-      const mensaje = mensajes[Math.floor(Math.random() * mensajes.length)];
+      const mensaje = mensajes[indiceMensaje];
       document.getElementById("textoMensaje").innerText = mensaje;
       document.getElementById("mensajeModal").style.display = "flex";
+
+      // pasar al siguiente en bucle
+      indiceMensaje++;
+      if (indiceMensaje >= mensajes.length) {
+        indiceMensaje = 0;
+      }
     }
 
     function cerrarMensaje() {
       document.getElementById("mensajeModal").style.display = "none";
     }
+
+    // cerrar ventana inicial con la X
+    document.getElementById("closeBtn").addEventListener("click", () => {
+      document.getElementById("overlay").style.display = "none";
+    });
   </script>
+
 </body>
 </html>
+
 
