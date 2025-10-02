@@ -59,14 +59,13 @@
     }
 
     /* Corazones cayendo */
-    .corazon {
-      position: absolute;
-      width: 40px;
-      height: 40px;
-      cursor: pointer;
-      z-index: 500;
-      animation: caer 5s linear forwards;
-    }
+   .corazon {
+  position: absolute;
+  font-size: 50px;   /* tamaño mediano */
+  cursor: pointer;
+  z-index: 500;
+  animation: caer 5s linear forwards;
+}
     @keyframes caer {
       0% {
         transform: translateY(-100px) rotate(0deg);
@@ -155,25 +154,26 @@
       }, 600);
     }
 
-    function crearCorazon() {
-      const corazon = document.createElement("img");
-      corazon.src = "fotos/corazon.png"; // tu imagen azul
-      corazon.classList.add("corazon");
-      corazon.style.left = Math.random() * window.innerWidth + "px";
-      corazon.style.top = "-50px";
+   function crearCorazon() {
+  const corazon = document.createElement("div");
+  corazon.innerText = "💙";  // aquí usamos el emoji azul
+  corazon.classList.add("corazon");
 
-      // evento de click en el corazón
-      corazon.addEventListener("click", () => {
-        mostrarMensaje();
-      });
+  // posición horizontal aleatoria
+  corazon.style.left = Math.random() * window.innerWidth + "px";
+  corazon.style.top = "-50px";
 
-      document.body.appendChild(corazon);
+  // evento de clic
+  corazon.addEventListener("click", () => {
+    mostrarMensaje();
+  });
 
-      setTimeout(() => {
-        corazon.remove();
-      }, 5000);
-    }
+  document.body.appendChild(corazon);
 
+  setTimeout(() => {
+    corazon.remove();
+  }, 5000);
+}
     function mostrarMensaje() {
       const mensaje = mensajes[Math.floor(Math.random() * mensajes.length)];
       document.getElementById("textoMensaje").innerText = mensaje;
