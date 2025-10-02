@@ -4,9 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1.0" />
   <title>Para Javi 💙</title>
-</head>
-<body>
-
   <style>
     body, html {
       margin: 0;
@@ -26,7 +23,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      z-index: 1000;
+      z-index: 2000;
     }
     .modal {
       position: relative;
@@ -58,39 +55,38 @@
       background: #004d99;
     }
 
+    /* Título central */
     .titulo {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-  z-index: 1000; /* para que quede encima de los corazones */
-}
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      text-align: center;
+      z-index: 3000; /* encima de los corazones */
+      display: none; /* oculto al inicio */
+    }
+    .titulo h1 {
+      font-family: "Cursive", sans-serif;
+      font-size: 60px;
+      color: #003366;
+      font-style: italic;
+      margin: 0;
+    }
+    .titulo p {
+      font-size: 20px;
+      color: #555;
+      margin-top: 10px;
+      font-style: italic;
+    }
 
-.titulo h1 {
-  font-family: "Cursive", sans-serif;
-  font-size: 60px;
-  color: #003366;
-  font-style: italic; /* cursiva */
-  margin: 0;
-}
-
-.titulo p {
-  font-size: 20px;
-  color: #555;
-  margin-top: 10px;
-  font-style: italic;
-}
-
-    
     /* Corazones cayendo */
-   .corazon {
-  position: absolute;
-  font-size: 50px;   /* tamaño mediano */
-  cursor: pointer;
-  z-index: 500;
-  animation: caer 5s linear forwards;
-}
+    .corazon {
+      position: absolute;
+      font-size: 50px;
+      cursor: pointer;
+      z-index: 500;
+      animation: caer 5s linear forwards;
+    }
     @keyframes caer {
       0% {
         transform: translateY(-100px) rotate(0deg);
@@ -111,7 +107,7 @@
       display: none;
       justify-content: center;
       align-items: center;
-      z-index: 2000;
+      z-index: 4000;
     }
     .mensaje-contenido {
       background: #fff;
@@ -140,6 +136,8 @@
       to { opacity: 1; transform: scale(1); }
     }
   </style>
+</head>
+<body>
 
   <!-- Ventana inicial -->
   <div class="overlay" id="overlay">
@@ -159,11 +157,12 @@
     </div>
   </div>
 
+  <!-- Título fijo -->
   <div class="titulo">
-  <h1>Feliz Día del Novio 💙</h1>
-  <p>(pls que ya no inventen más fechas jaja)</p>
-</div>
-  
+    <h1>Feliz Día del Novio 💙</h1>
+    <p>(pls que ya no inventen más fechas jaja)</p>
+  </div>
+
   <script>
     const mensajes = [
       "Eres mi cielo azul 💙",
@@ -178,32 +177,36 @@
       // ocultamos la ventana inicial
       document.getElementById("overlay").style.display = "none";
 
+      // mostramos el título
+      document.querySelector(".titulo").style.display = "block";
+
       // iniciar lluvia de corazones azules
       setInterval(() => {
         crearCorazon();
       }, 600);
     }
 
-   function crearCorazon() {
-  const corazon = document.createElement("div");
-  corazon.innerText = "💙";  // aquí usamos el emoji azul
-  corazon.classList.add("corazon");
+    function crearCorazon() {
+      const corazon = document.createElement("div");
+      corazon.innerText = "💙";  // emoji azul
+      corazon.classList.add("corazon");
 
-  // posición horizontal aleatoria
-  corazon.style.left = Math.random() * window.innerWidth + "px";
-  corazon.style.top = "-50px";
+      // posición horizontal aleatoria
+      corazon.style.left = Math.random() * window.innerWidth + "px";
+      corazon.style.top = "-50px";
 
-  // evento de clic
-  corazon.addEventListener("click", () => {
-    mostrarMensaje();
-  });
+      // evento de clic
+      corazon.addEventListener("click", () => {
+        mostrarMensaje();
+      });
 
-  document.body.appendChild(corazon);
+      document.body.appendChild(corazon);
 
-  setTimeout(() => {
-    corazon.remove();
-  }, 5000);
-}
+      setTimeout(() => {
+        corazon.remove();
+      }, 5000);
+    }
+
     function mostrarMensaje() {
       const mensaje = mensajes[Math.floor(Math.random() * mensajes.length)];
       document.getElementById("textoMensaje").innerText = mensaje;
@@ -222,4 +225,5 @@
 
 </body>
 </html>
+
 
